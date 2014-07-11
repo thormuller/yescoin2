@@ -1,12 +1,12 @@
 [Desktop Entry]
 Encoding=UTF-8
-Name=Bitcoin
-Comment=Bitcoin P2P Cryptocurrency
-Comment[fr]=Bitcoin, monnaie virtuelle cryptographique pair à pair
-Comment[tr]=Bitcoin, eşten eşe kriptografik sanal para birimi
-Exec=bitcoin-qt %u
+Name=Yescoin
+Comment=Yescoin P2P Cryptocurrency
+Comment[fr]=Yescoin, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=Yescoin, eşten eşe kriptografik sanal para birimi
+Exec=yescoin-qt %u
 Terminal=false
 Type=Application
-Icon=bitcoin128
-MimeType=x-scheme-handler/bitcoin;
+Icon=yescoin128
+MimeType=x-scheme-handler/yescoin;
 Categories=Office;Finance;

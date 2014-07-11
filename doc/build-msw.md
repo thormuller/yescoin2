@@ -72,12 +72,12 @@ MSYS shell:
 	mkdir miniupnpc
 	cp *.h miniupnpc/
 
-Bitcoin
+Yescoin
 -------
 MSYS shell:
 
-	cd \bitcoin
+	cd \yescoin
 	sh autogen.sh
 	sh configure
 	mingw32-make
-	strip bitcoind.exe
+	strip yescoind.exe

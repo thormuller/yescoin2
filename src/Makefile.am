@@ -21,46 +21,46 @@ $(LIBLEVELDB) $(LIBMEMENV):
           OPT="$(CXXFLAGS) $(CPPFLAGS)"
 endif
 
-BITCOIN_CONFIG_INCLUDES=-I$(builddir)/config
-BITCOIN_INCLUDES=-I$(builddir) -I$(builddir)/obj $(BOOST_CPPFLAGS) $(LEVELDB_CPPFLAGS)
+YESCOIN_CONFIG_INCLUDES=-I$(builddir)/config
+YESCOIN_INCLUDES=-I$(builddir) -I$(builddir)/obj $(BOOST_CPPFLAGS) $(LEVELDB_CPPFLAGS)
 
 if USE_LIBSECP256K1
-BITCOIN_INCLUDES += -I$(srcdir)/secp256k1/include
+YESCOIN_INCLUDES += -I$(srcdir)/secp256k1/include
 endif
 
-LIBBITCOIN_SERVER=libbitcoin_server.a
-LIBBITCOIN_WALLET=libbitcoin_wallet.a
-LIBBITCOIN_COMMON=libbitcoin_common.a
-LIBBITCOIN_CLI=libbitcoin_cli.a
-LIBBITCOIN_UTIL=libbitcoin_util.a
-LIBBITCOIN_CRYPTO=crypto/libbitcoin_crypto.a
-LIBBITCOINQT=qt/libbitcoinqt.a
+LIBYESCOIN_SERVER=libyescoin_server.a
+LIBYESCOIN_WALLET=libyescoin_wallet.a
+LIBYESCOIN_COMMON=libyescoin_common.a
+LIBYESCOIN_CLI=libyescoin_cli.a
+LIBYESCOIN_UTIL=libyescoin_util.a
+LIBYESCOIN_CRYPTO=crypto/libyescoin_crypto.a
+LIBYESCOINQT=qt/libyescoinqt.a
 
 noinst_LIBRARIES = \
-  libbitcoin_server.a \
-  libbitcoin_common.a \
-  libbitcoin_cli.a \
-  libbitcoin_util.a \
-  crypto/libbitcoin_crypto.a
+  libyescoin_server.a \
+  libyescoin_common.a \
+  libyescoin_cli.a \
+  libyescoin_util.a \
+  crypto/libyescoin_crypto.a
 if ENABLE_WALLET
-BITCOIN_INCLUDES += $(BDB_CPPFLAGS)
-noinst_LIBRARIES += libbitcoin_wallet.a
+YESCOIN_INCLUDES += $(BDB_CPPFLAGS)
+noinst_LIBRARIES += libyescoin_wallet.a
 endif
 
 bin_PROGRAMS =
 TESTS =
 
-if BUILD_BITCOIND
-  bin_PROGRAMS += bitcoind
+if BUILD_YESCOIND
+  bin_PROGRAMS += yescoind
 endif
 
-if BUILD_BITCOIN_CLI
-  bin_PROGRAMS += bitcoin-cli
+if BUILD_YESCOIN_CLI
+  bin_PROGRAMS += yescoin-cli
 endif
 
 .PHONY: FORCE
-# bitcoin core #
-BITCOIN_CORE_H = \
+# yescoin core #
+YESCOIN_CORE_H = \
   addrman.h \
   alert.h \
   allocators.h \
@@ -125,11 +125,11 @@ obj/build.h: FORCE
 	@$(MKDIR_P) $(builddir)/obj
 	@$(top_srcdir)/share/genbuild.sh $(abs_top_builddir)/src/obj/build.h \
 	  $(abs_top_srcdir)
-libbitcoin_util_a-version.$(OBJEXT): obj/build.h
+libyescoin_util_a-version.$(OBJEXT): obj/build.h
 
-# server: shared between bitcoind and bitcoin-qt
-libbitcoin_server_a_CPPFLAGS = $(BITCOIN_INCLUDES)
-libbitcoin_server_a_SOURCES = \
+# server: shared between yescoind and yescoin-qt
+libyescoin_server_a_CPPFLAGS = $(YESCOIN_INCLUDES)
+libyescoin_server_a_SOURCES = \
   addrman.cpp \
   alert.cpp \
   bloom.cpp \
@@ -151,23 +151,23 @@ libbitcoin_server_a_SOURCES = \
   txdb.cpp \
   txmempool.cpp \
   $(JSON_H) \
-  $(BITCOIN_CORE_H)
+  $(YESCOIN_CORE_H)
 
-# wallet: shared between bitcoind and bitcoin-qt, but only linked
+# wallet: shared between yescoind and yescoin-qt, but only linked
 # when wallet enabled
-libbitcoin_wallet_a_CPPFLAGS = $(BITCOIN_INCLUDES)
-libbitcoin_wallet_a_SOURCES = \
+libyescoin_wallet_a_CPPFLAGS = $(YESCOIN_INCLUDES)
+libyescoin_wallet_a_SOURCES = \
   db.cpp \
   crypter.cpp \
   rpcdump.cpp \
   rpcwallet.cpp \
   wallet.cpp \
   walletdb.cpp \
-  $(BITCOIN_CORE_H)
+  $(YESCOIN_CORE_H)
 
 # crypto primitives library
-crypto_libbitcoin_crypto_a_CPPFLAGS = $(BITCOIN_CONFIG_INCLUDES)
-crypto_libbitcoin_crypto_a_SOURCES = \
+crypto_libyescoin_crypto_a_CPPFLAGS = $(YESCOIN_CONFIG_INCLUDES)
+crypto_libyescoin_crypto_a_SOURCES = \
   crypto/sha1.cpp \
   crypto/sha2.cpp \
   crypto/ripemd160.cpp \
@@ -176,9 +176,9 @@ crypto_libbitcoin_crypto_a_SOURCES = \
   crypto/sha1.h \
   crypto/ripemd160.h
 
-# common: shared between bitcoind, and bitcoin-qt and non-server tools
-libbitcoin_common_a_CPPFLAGS = $(BITCOIN_INCLUDES)
-libbitcoin_common_a_SOURCES = \
+# common: shared between yescoind, and yescoin-qt and non-server tools
+libyescoin_common_a_CPPFLAGS = $(YESCOIN_INCLUDES)
+libyescoin_common_a_SOURCES = \
   allocators.cpp \
   base58.cpp \
   chainparams.cpp \
@@ -190,13 +190,13 @@ libbitcoin_common_a_SOURCES = \
   netbase.cpp \
   protocol.cpp \
   script.cpp \
-  $(BITCOIN_CORE_H)
+  $(YESCOIN_CORE_H)
 
 # util: shared between all executables.
 # This library *must* be included to make sure that the glibc
 # backward-compatibility objects and their sanity checks are linked.
-libbitcoin_util_a_CPPFLAGS = $(BITCOIN_INCLUDES)
-libbitcoin_util_a_SOURCES = \
+libyescoin_util_a_CPPFLAGS = $(YESCOIN_INCLUDES)
+libyescoin_util_a_SOURCES = \
   chainparamsbase.cpp \
   rpcprotocol.cpp \
   sync.cpp \
@@ -205,65 +205,65 @@ libbitcoin_util_a_SOURCES = \
   version.cpp \
   compat/glibc_sanity.cpp \
   compat/glibcxx_sanity.cpp \
-  $(BITCOIN_CORE_H)
+  $(YESCOIN_CORE_H)
 
 if GLIBC_BACK_COMPAT
-libbitcoin_util_a_SOURCES += compat/glibc_compat.cpp
-libbitcoin_util_a_SOURCES += compat/glibcxx_compat.cpp
+libyescoin_util_a_SOURCES += compat/glibc_compat.cpp
+libyescoin_util_a_SOURCES += compat/glibcxx_compat.cpp
 endif
 
-# cli: shared between bitcoin-cli and bitcoin-qt
-libbitcoin_cli_a_SOURCES = \
+# cli: shared between yescoin-cli and yescoin-qt
+libyescoin_cli_a_SOURCES = \
   rpcclient.cpp \
-  $(BITCOIN_CORE_H)
+  $(YESCOIN_CORE_H)
 
-nodist_libbitcoin_util_a_SOURCES = $(srcdir)/obj/build.h
+nodist_libyescoin_util_a_SOURCES = $(srcdir)/obj/build.h
 #
 
-# bitcoind binary #
-bitcoind_LDADD = \
-  $(LIBBITCOIN_SERVER) \
-  $(LIBBITCOIN_COMMON) \
-  $(LIBBITCOIN_UTIL) \
-  $(LIBBITCOIN_CRYPTO) \
+# yescoind binary #
+yescoind_LDADD = \
+  $(LIBYESCOIN_SERVER) \
+  $(LIBYESCOIN_COMMON) \
+  $(LIBYESCOIN_UTIL) \
+  $(LIBYESCOIN_CRYPTO) \
   $(LIBLEVELDB) \
   $(LIBMEMENV)
 
 if USE_LIBSECP256K1
-  bitcoind_LDADD += secp256k1/libsecp256k1.la
+  yescoind_LDADD += secp256k1/libsecp256k1.la
 endif
 
 if ENABLE_WALLET
-bitcoind_LDADD += libbitcoin_wallet.a
+yescoind_LDADD += libyescoin_wallet.a
 endif
-bitcoind_SOURCES = bitcoind.cpp
+yescoind_SOURCES = yescoind.cpp
 #
 
 if TARGET_WINDOWS
-bitcoind_SOURCES += bitcoind-res.rc
+yescoind_SOURCES += yescoind-res.rc
 endif
 
-bitcoind_LDADD += $(BOOST_LIBS) $(BDB_LIBS)
-bitcoind_CPPFLAGS = $(BITCOIN_INCLUDES)
+yescoind_LDADD += $(BOOST_LIBS) $(BDB_LIBS)
+yescoind_CPPFLAGS = $(YESCOIN_INCLUDES)
 
-# bitcoin-cli binary #
-bitcoin_cli_LDADD = \
-  $(LIBBITCOIN_CLI) \
-  $(LIBBITCOIN_COMMON) \
-  $(LIBBITCOIN_UTIL) \
-  $(LIBBITCOIN_CRYPTO) \
+# yescoin-cli binary #
+yescoin_cli_LDADD = \
+  $(LIBYESCOIN_CLI) \
+  $(LIBYESCOIN_COMMON) \
+  $(LIBYESCOIN_UTIL) \
+  $(LIBYESCOIN_CRYPTO) \
   $(BOOST_LIBS)
-bitcoin_cli_SOURCES = \
-  bitcoin-cli.cpp
+yescoin_cli_SOURCES = \
+  yescoin-cli.cpp
 
 if USE_LIBSECP256K1
-  bitcoin_cli_LDADD += secp256k1/libsecp256k1.la
+  yescoin_cli_LDADD += secp256k1/libsecp256k1.la
 endif
-bitcoin_cli_CPPFLAGS = $(BITCOIN_INCLUDES)
+yescoin_cli_CPPFLAGS = $(YESCOIN_INCLUDES)
 #
 
 if TARGET_WINDOWS
-bitcoin_cli_SOURCES += bitcoin-cli-res.rc
+yescoin_cli_SOURCES += yescoin-cli-res.rc
 endif
 
 CLEANFILES = leveldb/libleveldb.a leveldb/libmemenv.a *.gcda *.gcno

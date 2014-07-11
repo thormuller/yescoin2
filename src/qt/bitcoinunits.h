@@ -1,25 +1,25 @@
-// Copyright (c) 2011-2013 The Bitcoin developers
+// Copyright (c) 2011-2013 The Yescoin developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOINUNITS_H
-#define BITCOINUNITS_H
+#ifndef YESCOINUNITS_H
+#define YESCOINUNITS_H
 
 #include <QAbstractListModel>
 #include <QString>
 
-/** Bitcoin unit definitions. Encapsulates parsing and formatting
+/** Yescoin unit definitions. Encapsulates parsing and formatting
    and serves as list model for drop-down selection boxes.
 */
-class BitcoinUnits: public QAbstractListModel
+class YescoinUnits: public QAbstractListModel
 {
     Q_OBJECT
 
 public:
-    explicit BitcoinUnits(QObject *parent);
+    explicit YescoinUnits(QObject *parent);
 
-    /** Bitcoin units.
-      @note Source: https://en.bitcoin.it/wiki/Units . Please add only sensible ones
+    /** Yescoin units.
+      @note Source: https://en.yescoin.it/wiki/Units . Please add only sensible ones
      */
     enum Unit
     {
@@ -72,8 +72,8 @@ public:
     ///@}
 
 private:
-    QList<BitcoinUnits::Unit> unitlist;
+    QList<YescoinUnits::Unit> unitlist;
 };
-typedef BitcoinUnits::Unit BitcoinUnit;
+typedef YescoinUnits::Unit YescoinUnit;
 
-#endif // BITCOINUNITS_H
+#endif // YESCOINUNITS_H

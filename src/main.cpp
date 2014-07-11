@@ -1,5 +1,5 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2014 The Bitcoin developers
+// Copyright (c) 2009-2014 The Yescoin developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -29,7 +29,7 @@ using namespace std;
 using namespace boost;
 
 #if defined(NDEBUG)
-# error "Bitcoin cannot be compiled without assertions."
+# error "Yescoin cannot be compiled without assertions."
 #endif
 
 //
@@ -67,7 +67,7 @@ map<uint256, set<uint256> > mapOrphanTransactionsByPrev;
 // Constant stuff for coinbase transactions we create:
 CScript COINBASE_FLAGS;
 
-const string strMessageMagic = "Bitcoin Signed Message:\n";
+const string strMessageMagic = "Yescoin Signed Message:\n";
 
 // Internal stuff
 namespace {
@@ -1302,8 +1302,9 @@ void static PruneOrphanBlocks()
 
 int64_t GetBlockValue(int nHeight, int64_t nFees)
 {
-    int64_t nSubsidy = 50 * COIN;
+    int64_t nSubsidy = 25 * COIN;
     int halvings = nHeight / Params().SubsidyHalvingInterval();
+    if (nHeight == 7) {nSubsidy = 1250000 * COIN;}   
 
     // Force block reward to zero when right shift is undefined.
     if (halvings >= 64)
@@ -1736,7 +1737,7 @@ bool FindUndoPos(CValidationState &state, int nFile, CDiskBlockPos &pos, unsigne
 static CCheckQueue<CScriptCheck> scriptcheckqueue(128);
 
 void ThreadScriptCheck() {
-    RenameThread("bitcoin-scriptch");
+    RenameThread("yescoin-scriptch");
     scriptcheckqueue.Thread();
 }
 

@@ -1,16 +1,16 @@
-// Copyright (c) 2014 The Bitcoin developers
+// Copyright (c) 2014 The Yescoin developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOIN_CHAIN_PARAMS_BASE_H
-#define BITCOIN_CHAIN_PARAMS_BASE_H
+#ifndef YESCOIN_CHAIN_PARAMS_BASE_H
+#define YESCOIN_CHAIN_PARAMS_BASE_H
 
 #include <vector>
 #include <string>
 
 /**
- * CBaseChainParams defines the base parameters (shared between bitcoin-cli and bitcoind)
- * of a given instance of the Bitcoin system.
+ * CBaseChainParams defines the base parameters (shared between yescoin-cli and yescoind)
+ * of a given instance of the Yescoin system.
  */
 class CBaseChainParams
 {

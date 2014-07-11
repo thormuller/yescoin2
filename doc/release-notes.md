@@ -52,14 +52,14 @@ more than once, it is no longer ignored.  Instead, it is broadcast, to
 serve as an alert.  This broadcast is subject to protections against
 denial-of-service attacks.
 
-Wallets and other bitcoin services should alert their users to
+Wallets and other yescoin services should alert their users to
 double-spends that affect them.  Merchants and other users may have
 enough time to withhold goods or services when payment becomes
 uncertain, until confirmation.
 
-Bitcoin Core Wallet Alerts
+Yescoin Core Wallet Alerts
 --------------------------
-The Bitcoin Core wallet now makes respend attempts visible in several
+The Yescoin Core wallet now makes respend attempts visible in several
 ways.
 
 If you are online, and a respend affecting one of your wallet
