@@ -1,0 +1,6 @@
+usr/local/bin/yescoin-qt usr/bin
+share/pixmaps/yescoin32.xpm usr/share/pixmaps
+share/pixmaps/yescoin16.xpm usr/share/pixmaps
+share/pixmaps/yescoin128.png usr/share/pixmaps
+debian/yescoin-qt.desktop usr/share/applications
+debian/yescoin-qt.protocol usr/share/kde4/services/
