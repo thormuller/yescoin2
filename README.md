@@ -1,4 +1,4 @@
-Bitcoin Core integration/staging tree
+Yescoin!
 =====================================
 
 https://www.bitcoin.org
